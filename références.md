@@ -283,41 +283,38 @@ Line (Ramp) oscillateur.  Donne une phase dans un intervale 0-1, retourne la val
 Sval = **rotate**(Sval, irot)
 
 rotate - Rotation de la phrase autour d'un nombre irot de valeurs.
-(Inspiré de rotate par Charlie Roberts' Gibber.)
+(Inspiré du rotate de Charlie Roberts' Gibber.)
 
 
 ---
 
 Sval = **strrep**(Sval, inum)
 
-Repeats a given String x number of times. For example, `Sval = strrep("ab6a", 2)` will produce the value of "ab6aab6a". Useful in working with Hex beat strings.  
+Répète une chaîne String donnée x nombre de fois. Par exemple, `Sval = strrep (" ab6a ", 2)` produira la valeur de "ab6aab6a". Utile pour travailler avec les chaînes en Hex Beat.
 
 ---
 
 ival = **xchan**(SchanName, initVal)
 
 xchan
-Initializes a channel with initial value if channel has default value of 0 and
-then returns the current value from the channel. Useful in live coding to define
-a dynamic point that will be automated or set outside of the instrument that is
-using the channel.
+Initialise un canal avec une valeur initiale si le canal a une valeur par défaut de 0 et
+renvoie ensuite la valeur actuelle du canal. Utile dans le codage en direct pour définir
+un point dynamique qui sera automatisé ou défini en dehors de l'instrument qui utilise le canal.
 
-Opcode is overloaded to return i- or k- value. Be sure to use xchan:i or xchan:k
-to specify which value to use.
-
+L'opcode est oversloadé pour renvoyer la valeur i ou k. Assurez-vous d'utiliser xchan:i ou xchan:k
+pour spécifier quelle valeur utiliser.
 
 ---
 
 kval = **xchan**(SchanName, initVal)
 
 xchan
-Initializes a channel with initial value if channel has default value of 0 and
-then returns the current value from the channel. Useful in live coding to define
-a dynamic point that will be automated or set outside of the instrument that is
-using the channel.
+Initialise un canal avec une valeur initiale si le canal a une valeur par défaut de 0 et
+renvoie ensuite la valeur actuelle du canal. Utile dans le codage en direct pour définir
+un point dynamique qui sera automatisé ou défini en dehors de l'instrument qui utilise le canal.
 
-Opcode is overloaded to return i- or k- value. Be sure to use xchan:i or xchan:k
-to specify which value to use.
+L'opcode est oversloadé pour renvoyer la valeur i ou k. Assurez-vous d'utiliser xchan:i ou xchan:k
+pour spécifier quelle valeur utiliser.
 
 
 ---
@@ -337,35 +334,33 @@ octave and pitch class.
 
 **set\_scale**(Scale)
 
-Set the global scale.  Currently supports "maj" for major and "min" for minor scales. 
+Définit la fondamentale de la gamme.  Supporte "maj" et "min" pour majeure ou mineure. 
 
 ---
 
 ival = **in\_scale**(ioct, idegree)
 
-Calculate frequency from root note of scale, using
-octave and scale degree. 
+Calcule la fréquence de la note fondament de la gamme, utilise les octaves ou les degrés. 
 
 ---
 
 kval = **in\_scale**(koct, kdegree)
 
-Calculate frequency from root note of scale, using
-octave and scale degree. (k-rate version of opcode) 
+Calcule la fréquence depuis la note fondamentale de la gamme, utilise les octaves et les degrés (version k-rate de l'opcode) 
 
 ---
 
 ival = **pc\_quantize**(ipitch_in, iscale[])
 
-Quantizes given MIDI note number to the given scale
-(Base on pc:quantize from Extempore) 
+Quantifie le numéro de note MIDI donné pour la gamme donnée
+(Base sur pc: quantize from Extempore)
 
 ---
 
 ival = **pc\_quantize**(ipitch_in)
 
-Quantizes given MIDI note number to the current active scale
-(Base on pc:quantize from Extempore) 
+Quantifie le numéro de note MIDI donné pour la gamme active
+(Base sur pc: quantize from Extempore)
 
 ---
 
@@ -389,119 +384,116 @@ ival = **in\_chord**(ioct, idegree)
 
 aval = **declick**(ain)
 
-Utility opcode for declicking an audio signal. Should only be used in instruments that have positive p3 duration. 
+Opcode utilisé pour "décliquer" un signal audio. Ne doit être utilisé que dans des instruments ayant une durée positive de p3.
 
 ---
 
 kval = **oscil**(kfreq, kin[])
 
-Custom non-interpolating oscil that takes in kfrequency and array to use as oscillator table
-data. Outputs k-rate signal. 
+Oscillateur personnalisé non-interpolant prenant kfrequency et un tableau à utiliser comme table d'oscillateur. Émet un signal de taux-k. 
 
 ---
 
 **kill**(Sinstr)
 
-Turns off running instances of named instruments.  Useful when livecoding
-audio and control signal process instruments. May not be effective if for
-temporal recursion instruments as they may be non-running but scheduled in the
-event system. In those situations, try using clear\_instr to overwrite the
-instrument definition. 
+Désactive les instances d’instruments en cours. Utile en livecoding
+sur le traitement des signaux audio et de contrôle des instruments. Peut ne pas être efficace pour les
+instruments en récursion temporelle, car ils peuvent ne pas fonctionner mais être programmés dans le
+système d'événements. Dans ce cas, essayez d’utiliser clear\ _instr pour écraser la
+définition de l'instrument.
 
 ---
 
 **clear\_instr**(Sinstr)
 
-Redefines instr to empty body. Useful for killing
-temporal recursion or clock callback functions 
+Redéfinit l'instr dans un éditeur vierge. Utile pour tuer les
+fonctions de récursion temporelle ou de rappel d'horloge. 
 
 ---
 
 **start**(Sinstr)
 
-Starts running a named instrument for indefinite time using p2=0 and p3=-1.
-Will first turnoff any instances of existing named instrument first.  Useful
-when livecoding always-on audio and control signal process instruments. 
+Commence à exécuter un instrument nommé pour une durée indéterminée en utilisant p2 = 0 et p3 = -1.
+Commencez par désactiver toutes les occurrences de l'instrument nommé existant. Utile
+lors du codage en direct des signaux audio toujours actifs et des instruments de traitement de signal de commande.
 
 ---
 
 **stop**(Sinstr)
 
-Stops a running named instrument, allowing for release segments to operate. 
+Stop un instrument en cours d'execution, permet de libérer des segments pour fonctionner. 
 
 ---
 
 **eval\_at\_time**(Scode, istart)
 
-Evaluate code at a given time 
+Evalue le code à un temps donné 
 
 ---
 
 **set\_fade\_range**(irange)
 
-Sets the range in db to fade over. By default, range is -30 (i.e., fades from -30dbfs to 0dbfs) 
+Définit une plage de fading en db. Par défaut, la plage est -30 (i.e., de -30dbfs à 0dbfs) 
 
 ---
 
 ival = **fade\_in**(ident, inumticks)
 
-Given a fade channel identifier (number) and number of ticks to fade over time, advances from current fade channel value towards 0dbfs (1.0) using the globally set fade range. (By default starts fading in from -30dBfs and stops at 0dbfs.) 
+Pour un canal identifié (nombre) donne un nombre de ticks de fading dans le temps, le fading progresse sur ce canal vers 0dbfs (1.0) en utilisant la plage de fading définie globalement. (Par défaut, le fading démarre à -30dBfs et s’arrête à 0dbfs.)
 
 ---
 
 ival = **fade\_out**(ident, inumticks)
 
-Given a fade channel identifier (number) and number of ticks to fade over time, advances from current fade channel value towards 0 using the globally set fade range. (By default starts fading out from 0dBfs and stops at -30dbfs.) 
+Pour un canal identifié (nombre) et un nombre de ticks donnés pour le fading de sortie, progresse de la valeur actuelle vers 0 suivant la définition globale du fading. (Par défaut le fading commence à 0dBfs et s'arrête à -30dbfs.) 
 
 ---
 
 ival = **fade\_read**(ident)
 
-Read value from fade channel. Useful if copy/pasting then wanting to just read from fade and control in the original code. 
+Lit la valeur de fading du canale. Utilisé en cas de copié/collé pour contrôler les valeurs. 
 
 ---
 
 **set\_fade**(ident, ival)
 
- Set value for fade channel to given value. Should be in range 0-1.0.  (Typically one sets to either 0 or 1.) 
+ Définit les valeurs de fading du canal. Valeurs comprises entre 0-1.0.  (Généralement définies par 0 ou 1) 
 
 ---
 
 **sbus\_write**(ibus, al, ar)
 
-Write two audio signals into stereo bus at given index 
+Écrire deux signaux audio sur le bus stéréo à un index donné 
 
 ---
 
 **sbus\_mix**(ibus, al, ar)
 
-Mix two audio signals into stereo bus at given index 
+Mixer deux signaux audio dans un bus stéréo à un index donné
 
 ---
 
 **sbus\_clear**(ibus)
 
-Clear audio signals from bus channel 
+Effacer les signaux audio du canal de bus 
 
 ---
 
 aaval = **sbus\_read**(ibus)
 
-Read audio signals from bus channel 
+Lire les signaux depuis le canal de bus 
 
 ---
 
 **pan\_verb\_mix**(asig, kpan, krvb)
 
-Utility opcode to pan signal, send dry to mixer, and send amount
-of signal to reverb. If ReverbMixer is not on, will output just
-panned signal using out opcode. 
+Opcode pour régler le signal panoramique, envoie les valeurs au mixeur et envoie en amont le signal à réverbérer. Si ReverbMixer n’est pas activé, la sortie ne se fera que sur le signal panoramique utilisant l'opcode.
 
 ---
 
 aval = **saturate**(asig, ksat)
 
-Saturation using tanh 
+Saturation avec tanh 
 
 ---
 
@@ -509,7 +501,7 @@ Saturation using tanh
 
 |Instrument Name | Description |
 | ---- | ---- | 
-|  ReverbMixer | Always-on Mixer instrument with Reverb send channel. Use start("ReverbMixer") to run. Designed for use with pan\_verb\_mix to simplify signal-based live coding.  | 
+|  ReverbMixer | Mixer Always-on qui envoie une Reverb au canal. Utiliser start("ReverbMixer") pour l'activation. Utilisé avec pan\_verb\_mix to simplify signal-based live coding.  | 
 |  Sub1 | Substractive Synth, 3osc  | 
 |  Sub2 | Subtractive Synth, two saws, fifth freq apart  | 
 |  Sub3 | Subtractive Synth, three detuned saws, swells in  | 
